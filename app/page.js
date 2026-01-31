@@ -35,6 +35,22 @@ export default function HomePage() {
     <main style={{ maxWidth: 900, margin: "0 auto", padding: 16 }}>
       <h1 style={{ fontSize: 28 }}>Affordable Chapter SA</h1>
       <p style={{ opacity: 0.7 }}>Find affordable cars in South Africa</p>
+<a
+  href="/buyer-budget"
+  style={{
+    display: "inline-block",
+    padding: "10px 14px",
+    borderRadius: 12,
+    border: "1px solid #111",
+    background: "#111",
+    color: "#fff",
+    fontWeight: 800,
+    textDecoration: "none",
+    margin: "10px 0 16px",
+  }}
+>
+  Post Your Budget
+</a>
 
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
         {CATEGORIES.map((c) => (
