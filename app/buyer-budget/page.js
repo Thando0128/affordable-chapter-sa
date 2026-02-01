@@ -88,6 +88,17 @@ export default function BuyerBudgetPage() {
       <p style={{ opacity: 0.75, marginTop: 0 }}>
         Tell us what car you want and your budget. Sellers can respond with offers.
       </p>
+<a
+  href="/"
+  style={{
+    display: "inline-block",
+    marginBottom: 14,
+    textDecoration: "none",
+    fontWeight: 700,
+  }}
+>
+  ← Back to Home
+</a>
 
       <form onSubmit={onSubmit} style={{ display: "grid", gap: 12 }}>
         <label>
