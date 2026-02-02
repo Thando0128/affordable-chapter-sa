@@ -33,57 +33,51 @@ export default function HomePage() {
 
   return (
     <main className="container">
-    <h1 className="h1">Affordable Chapter SA</h1>
-<p className="p">Find affordable cars in South Africa</p>
+      <h1 className="h1">Affordable Chapter SA</h1>
+      <p className="p">Find affordable cars in South Africa</p>
 
-  <a href="/buyer-budget" className="btn btn-primary" style={{ margin: "10px 0 16px" }}>
-  Post Your Budget
-</a>
+      <a
+        href="/buyer-budget"
+        className="btn btn-primary"
+        style={{ margin: "10px 0 16px" }}
+      >
+        Post Your Budget
+      </a>
 
-  style={{
-    display: "inline-block",
-    padding: "10px 14px",
-    borderRadius: 12,
-    border: "1px solid #111",
-    background: "#111",
-    color: "#fff",
-    fontWeight: 800,
-    textDecoration: "none",
-    margin: "10px 0 16px",
-  }}
->
-  Post Your Budget
-</a>
-
-<div className="pills">
-{CATEGORIES.map((c) => (<button
-  key={c.label}
-  onClick={() => setSelected(c.value)}
-  className={`pill ${selected === c.value ? "pill-active" : ""}`}
->
-  {c.label}
-</button>
-
-            }}
+      <div className="pills">
+        {CATEGORIES.map((c) => (
+          <button
+            key={c.label}
+            onClick={() => setSelected(c.value)}
+            className={`pill ${selected === c.value ? "pill-active" : ""}`}
+            type="button"
           >
             {c.label}
           </button>
         ))}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 12 }}>
+      <div className="grid">
         {filteredCars.map((car) => (
-          <div key={car.id} style={{ border: "1px solid #eee", borderRadius: 12, padding: 12 }}>
-            <b>{car.title}</b>
-            <div>{formatZAR(car.price)}</div>
-            <small>{car.location}</small>
-            <div style={{ marginTop: 8 }}>
-              <button>View</button>{" "}
-              <button>Make Offer</button>
+          <div key={car.id} className="card">
+            <div style={{ fontWeight: 900 }}>{car.title}</div>
+            <div className="price">{formatZAR(car.price)}</div>
+            <div className="small">{car.location}</div>
+
+            <div className="actions">
+              <button className="btn" type="button">View</button>
+              <button className="btn btn-primary" type="button">Make Offer</button>
             </div>
           </div>
         ))}
       </div>
+
+      {filteredCars.length === 0 && (
+        <p className="p" style={{ marginTop: 16 }}>
+          No cars found in this category.
+        </p>
+      )}
     </main>
   );
 }
+
