@@ -3,9 +3,20 @@
 // Later we will replace this with MongoDB.
 let REQUESTS = [];
 
-export async function POST(req) {
-  try {
-    const body = await req.json();
+export async function GET(req) {
+  const url = new URL(req.url);
+  const pass = url.searchParams.get("pass") || "";
+
+  if (!process.env.ADMIN_PASSWORD) {
+    return Response.json({ ok: false, error: "Admin password not set." }, { status: 500 });
+  }
+
+  if (pass !== process.env.ADMIN_PASSWORD) {
+    return Response.json({ ok: false, error: "Unauthorized." }, { status: 401 });
+  }
+
+  return Response.json({ ok: true, requests: REQUESTS.slice(0, 50) }, { status: 200 });
+}
 
     const makeModel = String(body.makeModel || "").trim();
     const contact = String(body.contact || "").trim();
