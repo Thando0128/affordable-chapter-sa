@@ -32,11 +32,14 @@ export default function HomePage() {
   }, [selected]);
 
   return (
-    <main style={{ maxWidth: 900, margin: "0 auto", padding: 16 }}>
-      <h1 style={{ fontSize: 28 }}>Affordable Chapter SA</h1>
-      <p style={{ opacity: 0.7 }}>Find affordable cars in South Africa</p>
-<a
-  href="/buyer-budget"
+    <main className="container">
+    <h1 className="h1">Affordable Chapter SA</h1>
+<p className="p">Find affordable cars in South Africa</p>
+
+  <a href="/buyer-budget" className="btn btn-primary" style={{ margin: "10px 0 16px" }}>
+  Post Your Budget
+</a>
+
   style={{
     display: "inline-block",
     padding: "10px 14px",
@@ -52,17 +55,15 @@ export default function HomePage() {
   Post Your Budget
 </a>
 
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16 }}>
-        {CATEGORIES.map((c) => (
-          <button
-            key={c.label}
-            onClick={() => setSelected(c.value)}
-            style={{
-              padding: "8px 14px",
-              borderRadius: 999,
-              border: "1px solid #ddd",
-              background: selected === c.value ? "#111" : "#fff",
-              color: selected === c.value ? "#fff" : "#111",
+<div className="pills">
+{CATEGORIES.map((c) => (<button
+  key={c.label}
+  onClick={() => setSelected(c.value)}
+  className={`pill ${selected === c.value ? "pill-active" : ""}`}
+>
+  {c.label}
+</button>
+
             }}
           >
             {c.label}
