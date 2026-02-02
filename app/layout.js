@@ -1,3 +1,4 @@
+import "./globals.css";
 export const metadata = {
   title: "Affordable Chapter SA",
   description: "Find affordable cars in South Africa",
