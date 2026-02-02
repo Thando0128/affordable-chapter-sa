@@ -13,15 +13,33 @@ export default function AdminRequestsPage() {
   const [status, setStatus] = useState({ type: "loading", message: "Loading requests..." });
 
   async function load() {
-    setStatus({ type: "loading", message: "Loading requests..." });
-    try {
-      const res = await fetch("/api/buyer-requests", { cache: "no-store" });
-      const data = await res.json();
+  const pass = window.prompt("Enter admin password:");
+  if (!pass) {
+    setStatus({ type: "error", message: "Password required." });
+    return;
+  }
 
-      if (!res.ok || !data?.ok) {
-        setStatus({ type: "error", message: "Failed to load requests." });
-        return;
-      }
+  setStatus({ type: "loading", message: "Loading requests..." });
+
+  try {
+    const res = await fetch(`/api/buyer-requests?pass=${encodeURIComponent(pass)}`, {
+      cache: "no-store",
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || !data?.ok) {
+      setStatus({ type: "error", message: data?.error || "Failed to load requests." });
+      return;
+    }
+
+    setItems(Array.isArray(data.requests) ? data.requests : []);
+    setStatus({ type: "success", message: "Loaded." });
+  } catch (e) {
+    setStatus({ type: "error", message: "Network error while loading." });
+  }
+}
+
 
       setItems(Array.isArray(data.requests) ? data.requests : []);
       setStatus({ type: "success", message: "Loaded." });
