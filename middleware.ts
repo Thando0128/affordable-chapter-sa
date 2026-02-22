@@ -1,0 +1,32 @@
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+
+  // Allow login page and login API
+  if (
+    pathname.startsWith("/admin/login") ||
+    pathname.startsWith("/api/admin/login")
+  ) {
+    return NextResponse.next();
+  }
+
+  // Protect all /admin routes
+  if (pathname.startsWith("/admin")) {
+    const isAuthed = req.cookies.get("admin_auth")?.value === "1";
+
+    if (!isAuthed) {
+      const url = req.nextUrl.clone();
+      url.pathname = "/admin/login";
+      url.searchParams.set("next", pathname);
+      return NextResponse.redirect(url);
+    }
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ["/admin/:path*"],
+};
